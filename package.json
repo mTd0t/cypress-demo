@@ -1,0 +1,29 @@
+{
+  "name": "cypress-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mTd0t/cypress-demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mTd0t/cypress-demo/issues"
+  },
+  "homepage": "https://github.com/mTd0t/cypress-demo#readme",
+  "description": "",
+  "dependencies": {
+    "cypress": "^14.1.0",
+    "server-http": "^1.0.1"
+  },
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^22.0.1",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.4",
+    "esbuild": "^0.25.0"
+  }
+}

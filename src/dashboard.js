@@ -66,7 +66,7 @@ taskForm.addEventListener('submit', function (event) {
     event.preventDefault();
     const taskText = taskInput.value.trim();
     if (taskText) {
-        tasks.push({text: taskText, completed: false}); // Add task with completed status
+        tasks.push({ text: taskText, completed: false }); // Add task with completed status
         localStorage.setItem(`tasks_${currentUser.username}`, JSON.stringify(tasks)); // Save tasks for the current user
         renderTasks();
         taskInput.value = '';
@@ -110,6 +110,9 @@ window.editTask = function (index) {
         <button class="bg-green-500 text-white py-1 px-3 rounded-md hover:bg-green-600 mt-2 transition-all duration-200 ease-in-out transform hover:scale-110" onclick="saveTask(${index})">
             Save
         </button>
+        <button class="bg-red-500 text-white py-1 px-3 rounded-md hover:bg-red-600 mt-2 transition-all duration-200 ease-in-out transform hover:scale-110" onclick="renderTasks()">
+            Cancel
+        </button>
     `;
 };
 
@@ -127,6 +130,11 @@ window.saveTask = function (index) {
 
 // Mark a task as done
 window.markTaskDone = function (index) {
+    if (tasks[index].completed) {
+        Swal.fire('Error!', 'Task is already completed.', 'error');
+        return;
+    }
+
     // Add a slide-out animation before marking as done
     const taskElement = document.querySelector(`li[data-index="${index}"]`);
     taskElement.classList.add('opacity-0', 'translate-x-full', 'transition-all', 'duration-300', 'ease-in-out');

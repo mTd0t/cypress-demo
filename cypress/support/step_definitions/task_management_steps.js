@@ -1,4 +1,4 @@
-import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
+import { Given, Then, When } from "@badeball/cypress-cucumber-preprocessor";
 
 // Step: Log in as a specific user
 Given("I am logged in as {string}", (username) => {
@@ -14,6 +14,21 @@ Given("I am logged in as {string}", (username) => {
 When("I add a new task {string}", (taskText) => {
     cy.get("#taskInput").type(taskText); // Enter the task text
     cy.get("#taskForm").submit(); // Submit the form to add the task
+});
+
+// Step: Click the textbox
+When("I click the textbox", () => {
+    cy.get("#taskInput").click(); // Corrected selector
+});
+
+// Step: Type text into the textbox
+When("I type {string}", (text) => {
+    cy.get("#taskInput").type(text); // Added step for typing text
+});
+
+// Step: Click a button with specific text
+When("I click the button {string}", (buttonText) => {
+    cy.get("button").contains(buttonText).click(); // Added step for clicking a button
 });
 
 // Step: Verify the task is in the active tasks list
@@ -76,13 +91,32 @@ When("I delete the task {string}", (taskText) => {
         .within(() => {
             cy.get('button').contains("Delete").click(); // Click the "Delete" button
         });
+    // Wait for the SweetAlert2 popup to appear
+    cy.get(".swal2-popup", { timeout: 5000 }).should("be.visible"); // Wait up to 5 seconds for the popup to appear
 
     // Confirm the deletion in the SweetAlert2 popup
-    cy.get(".swal2-popup").should("be.visible");
+    cy.get(".swal2-confirm").click();
+});
+
+When("I delete the finished task {string}", (taskText) => {
+    cy.get("#finishedTaskList")
+        .contains("li", taskText) // Find the task in the active tasks list
+        .within(() => {
+            cy.get('button').contains("Delete").click(); // Click the "Delete" button
+        });
+    // Wait for the SweetAlert2 popup to appear
+    cy.get(".swal2-popup", { timeout: 5000 }).should("be.visible"); // Wait up to 5 seconds for the popup to appear
+
+    // Confirm the deletion in the SweetAlert2 popup
     cy.get(".swal2-confirm").click();
 });
 
 // Step: Verify the task is not in the active tasks list
 Then("I should not see the task {string} in the active tasks list", (taskText) => {
     cy.get("#activeTaskList").should("not.contain", taskText); // Check if the task is not in the active tasks list
+});
+
+// Step: Verify the task is not in the finished tasks list
+Then("I should not see the task {string} in the finished tasks list", (taskText) => {
+    cy.get("#finishedTaskList").should("not.contain", taskText); // Added step for verifying absence in finished tasks
 });

@@ -28,11 +28,11 @@ Then("I should see a success message", () => {
     cy.get(".swal2-title").should("contain", "Login Successful!");
 });
 
-Then('I should click the "Go to Task Manager" button', () => {
+When('I click the "Go to Task Manager" button', () => {
     // Click the confirm button in the SweetAlert2 popup
     cy.get(".swal2-confirm").click(); // Use the custom class added to the button
 });
-Then('I click the Logout button', () => {
+When('I click the Logout button', () => {
     // Click the confirm button in the SweetAlert2 popup
     cy.get("#logoutBtn").click(); // Use the custom class added to the button
 });
@@ -46,7 +46,7 @@ Then("I should see an error message", () => {
     cy.get(".swal2-popup").should("be.visible");
     cy.get(".swal2-title").should("contain", "Login Failed");
 });
-Then('I should click the "Try Again" button', () => {
+When('I click the "Try Again" button', () => {
     // Click the confirm button in the SweetAlert2 popup
     cy.get(".swal2-confirm").click(); // Use the custom class added to the button
 });
